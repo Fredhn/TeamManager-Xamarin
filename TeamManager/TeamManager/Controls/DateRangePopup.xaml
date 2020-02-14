@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="TeamManager.Controls.DateRangePopup">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="#9cdaf1"/>
+                <Setter Property="TextColor" Value="#7dbbe6"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Bottom"
+            PositionOut="Center"
+            ScaleIn="1"
+            ScaleOut="0.7"
+            DurationIn="700"
+            EasingIn="BounceOut"/>
+    </pages:PopupPage.Animation>
+    <ScrollView
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Padding="0">
+        <StackLayout Padding="0">
+            <Frame
+                x:Name="FrameContainer"
+                Margin="15,3,15,3"
+                Padding="5"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                BorderColor="{StaticResource FrameBorderColor}"
+                MinimumWidthRequest="200"
+                WidthRequest="260">
+                <StackLayout>
+                    <ffsvg:SvgCachedImage
+                        Source="resource://TeamManager.Resources.close.svg"
+                        x:Name="CloseImage"
+                        HeightRequest="25"
+                        WidthRequest="25"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+                        <ffsvg:SvgCachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+                        </ffsvg:SvgCachedImage.GestureRecognizers>
+                        <ffsvg:SvgCachedImage.Transformations>
+                            <fftransformations:TintTransformation HexColor="#003049" EnableSolidColor="true"/>
+                        </ffsvg:SvgCachedImage.Transformations>
+                    </ffsvg:SvgCachedImage>
+                    <Frame x:Name="PeriodValidationLabel" IsVisible="False" BorderColor="Red" BackgroundColor="#ff9999" HorizontalOptions="Center" VerticalOptions="Start" Padding="5">
+                        <StackLayout BackgroundColor="Transparent">
+                            <Label Text="Please, select a valid period!" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Small" TextColor="White"/>
+                            <Label Text="10, 20 or 30 days" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Small" TextColor="White"/>
+                        </StackLayout>
+                    </Frame>
+                    <StackLayout>
+                        <Label Style="{StaticResource LabelTitle}" Text="Start:"/>
+                        <DatePicker x:Name="StartDate" Format="dd-MMM-yyyy" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                        <!--<DatePicker Date="{Binding Vacation.DateStart}" Format="dd-MMM-yyyy" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>-->
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Style="{StaticResource LabelTitle}" Text="End:"/>
+                        <DatePicker x:Name="EndDate" Format="dd-MMM-yyyy" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                        <!--<DatePicker Date="{Binding Vacation.DateEnd}" Format="dd-MMM-yyyy" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>-->
+                    </StackLayout>
+                    <Frame BorderColor="{StaticResource FrameBorderColor}" BackgroundColor="#e5f4ff" VerticalOptions="End" Padding="3">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_BtnSaveDates" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="3">
+                            <!--<Label Text="" FontSize="Medium" HorizontalOptions="Start" FontAttributes="Bold" VerticalOptions="Center" TextColor="#0092ff"/>-->
+                            <ffsvg:SvgCachedImage 
+                                x:Name="btn_DatePopup"
+                                Source="resource://TeamManager.Resources.ok.svg"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                HeightRequest="25" 
+                                WidthRequest="25"
+                                Margin="0,0,10,0"
+                                Aspect="AspectFit">
+                                <ffsvg:SvgCachedImage.Transformations>
+                                    <fftransformations:TintTransformation HexColor="#003049" EnableSolidColor="true"/>
+                                </ffsvg:SvgCachedImage.Transformations>
+                                <ffsvg:SvgCachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Tapped="TapGestureRecognizer_BtnSaveDates" 
+                                        NumberOfTapsRequired="1"/>
+                                </ffsvg:SvgCachedImage.GestureRecognizers>
+                            </ffsvg:SvgCachedImage>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+</pages:PopupPage>

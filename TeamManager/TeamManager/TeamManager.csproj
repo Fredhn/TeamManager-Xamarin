@@ -1,0 +1,75 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\add-date.svg" />
+    <None Remove="Resources\close.svg" />
+    <None Remove="Resources\delete.svg" />
+    <None Remove="Resources\edit.svg" />
+    <None Remove="Resources\left-arrow.svg" />
+    <None Remove="Resources\ok.svg" />
+    <None Remove="Resources\right-arrow.svg" />
+    <None Remove="Resources\trash.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\add-date.svg" />
+    <EmbeddedResource Include="Resources\close.svg" />
+    <EmbeddedResource Include="Resources\delete.svg" />
+    <EmbeddedResource Include="Resources\edit.svg" />
+    <EmbeddedResource Include="Resources\left-arrow.svg" />
+    <EmbeddedResource Include="Resources\ok.svg" />
+    <EmbeddedResource Include="Resources\right-arrow.svg" />
+    <EmbeddedResource Include="Resources\trash.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\CalendarControl.xaml.cs">
+      <DependentUpon>CalendarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\ConfirmationPopup.xaml.cs">
+      <DependentUpon>ConfirmationPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\DateRangePopup.xaml.cs">
+      <DependentUpon>DateRangePopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CalendarPage.xaml.cs">
+      <DependentUpon>CalendarPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\EditEmployeePage.xaml.cs">
+      <DependentUpon>EditEmployeePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\VacationDetailPage.xaml.cs">
+      <DependentUpon>VacationDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\EmployeesPage.xaml.cs">
+      <DependentUpon>EmployeesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\EmployeeDetailPage.xaml.cs">
+      <DependentUpon>EmployeeDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\NewEmployeePage.xaml.cs">
+      <DependentUpon>NewEmployeePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Controls\CalendarControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

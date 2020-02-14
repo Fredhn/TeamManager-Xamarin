@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TeamManager.App">
+    <Application.Resources>
+        <!--Global Styles-->
+        <Color x:Key="NavigationPrimary">#003049</Color>
+        <Color x:Key="TitleColor">#ecb939</Color>
+        <!--<Color x:Key="BackgroundColor">#726255</Color>-->
+        <Color x:Key="BackgroundColor">#f0c75e</Color>
+        <Color x:Key="NavigationBarColor">#444647</Color>
+        <Color x:Key="WhiteColor">#F7F7F7</Color>
+        <Color x:Key="YellowColor">#FFD102</Color>
+        <Color x:Key="YellowColor2">#FFFBB930</Color>
+        <Color x:Key="FrameBorderColor">#003049</Color>
+        <Color x:Key="RedColor">#d62828</Color>
+        <!--<Color x:Key="FrameBorderColor">#f77f00</Color>-->
+        <Color x:Key="FrameBackgroundColor">#eae2b7</Color>
+        
+        <!--Views-->
+        <Style x:Key="FrameDetailedInfo" TargetType="Frame">
+            <!--<Setter Property="BorderColor" Value="#0092ff" />-->
+            <Setter Property="BorderColor" Value="{StaticResource FrameBorderColor}" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BackgroundColor" Value="{StaticResource FrameBackgroundColor}" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+        </Style>
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor"  Value="{ StaticResource NavigationPrimary}"/>
+            <Setter Property="BarTextColor"  Value="{StaticResource TitleColor}"/>
+        </Style>
+        <Style x:Key="LabelTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="#d62828" />
+        </Style>
+        <Style x:Key="LabelContent" TargetType="Label">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="#003049" />
+        </Style>
+    </Application.Resources>
+</Application>

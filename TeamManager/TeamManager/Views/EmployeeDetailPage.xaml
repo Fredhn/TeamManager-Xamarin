@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             mc:Ignorable="d"
+             x:Class="TeamManager.Views.EmployeeDetailPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Clicked="EditItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="20" Padding="15">
+        <!--<Frame BorderColor="#0092ff" BackgroundColor="#e5f4ff" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Padding="0" Margin="0,5,5,0">
+            <StackLayout Padding="5" Margin="5">
+                <ffsvg:SvgCachedImage 
+                        x:Name="btn_EditEmployee"
+                        Source="resource://TeamManager.Resources.edit.svg"
+                        HeightRequest="25"
+                        WidthRequest="25"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Aspect="AspectFit">
+                    <ffsvg:SvgCachedImage.Transformations>
+                        <fftransformations:TintTransformation HexColor="#0092ff" EnableSolidColor="true"/>
+                    </ffsvg:SvgCachedImage.Transformations>
+                    <ffsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="EditItem_Clicked"
+                            NumberOfTapsRequired="1"/>
+                    </ffsvg:SvgCachedImage.GestureRecognizers>
+                </ffsvg:SvgCachedImage>
+                <Label Text="Edit" TextColor="#0092ff" />
+            </StackLayout>
+        </Frame>-->
+        <Frame>
+            <StackLayout Orientation="Horizontal" Padding="0" Margin="0" VerticalOptions="Fill" HorizontalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Style="{StaticResource LabelTitle}" Text="First Name:"/>
+                    <Label Style="{StaticResource LabelContent}"  Text="{Binding Employee.FirstName}" d:Text="First name"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Style="{StaticResource LabelTitle}" Text="Last name:"/>
+                    <Label Style="{StaticResource LabelContent}" Text="{Binding Employee.LastName}" d:Text="Last name"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <StackLayout>
+                <Label Style="{StaticResource LabelTitle}" Text="E-mail:"/>
+                <Label Style="{StaticResource LabelContent}" Text="{Binding Employee.EmailAddress}" d:Text="E-mail"/>
+            </StackLayout>
+        </Frame>
+        <StackLayout Orientation="Horizontal" Padding="0" Margin="0" VerticalOptions="Fill" HorizontalOptions="FillAndExpand">
+            <Frame HorizontalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="StartAndExpand">
+                    <Label Style="{StaticResource LabelTitle}" Text="Admission Date:" HorizontalOptions="Start"/>
+                    <Label Style="{StaticResource LabelContent}" Text="{Binding Employee.AdmissionDate, StringFormat='{0:dd-MMM-yyyy}'}" d:Text="Admission date" HorizontalOptions="Start"/>
+                </StackLayout>
+            </Frame>
+            <Frame HorizontalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="StartAndExpand">
+                    <Label Style="{StaticResource LabelTitle}" Text="Acquisitive Period:" HorizontalOptions="Start"/>
+                    <Label Style="{StaticResource LabelContent}" Text="{Binding Employee.AcquisitivePeriod, StringFormat='{0:dd-MMM-yyyy}'}" d:Text="Admission date" HorizontalOptions="Start"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+        <Frame>
+            <StackLayout>
+                <Label Style="{StaticResource LabelTitle}" Text="Vacations History:"/>
+                <ScrollView>
+                    <ListView x:Name="SpentVacationsListView"
+                              ItemsSource="{Binding SpentVacations}"
+                              ItemSelected="SpentVacationSelected">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame Style="{StaticResource FrameDetailedInfo}" BackgroundColor="{Binding StatusColor}">
+                                        <StackLayout>
+                                            <Label Style="{StaticResource LabelContent}" Text="{Binding RefYear}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    </ScrollView>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+    
+</ContentPage>

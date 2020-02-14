@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             mc:Ignorable="d"
+             x:Name="VacationDetailContentPage"
+             x:Class="TeamManager.Views.VacationDetailPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{Binding Title}">
+    <!--<ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="#d62828" />
+            </Style>
+            <Style x:Key="LabelContent" TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="#003049" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>-->
+    <StackLayout Spacing="20" Padding="15">
+        <Frame>
+            <StackLayout>
+                <Label Style="{StaticResource LabelTitle}" Text="Year:"/>
+                <Label Style="{StaticResource LabelContent}"  Text="{Binding Vacation.RefYear}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <StackLayout>
+                <Label Style="{StaticResource LabelTitle}" Text="Total days:"/>
+                <Label Style="{StaticResource LabelContent}" Text="{Binding TDays}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                <!--<Label Text="{Binding Vacation.TotalDays}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>-->
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <StackLayout>
+                <Label Style="{StaticResource LabelTitle}" Text="Spent:"/>
+                <CheckBox IsChecked="{Binding Spent}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="False"/>
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <StackLayout>
+                <Label Style="{StaticResource LabelTitle}" Text="Periods Spent:"/>
+                <ScrollView VerticalOptions="CenterAndExpand" >
+                    <ListView ItemsSource="{Binding Vacations}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="90*" />
+                                            <ColumnDefinition Width="10*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Frame Grid.Column="0" Grid.Row="0" Style="{StaticResource FrameDetailedInfo}" Margin="5,5,0,0" Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                            <Grid Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0,10,0">
+                                                    <Label TextColor="#003049" Text="From" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
+                                                    <Label TextColor="#003049" Text="{Binding DateStart, StringFormat='{0:dd/MMM}'}" d:Text="Start date" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                                                    <Label TextColor="#003049" Text="to" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
+                                                    <Label TextColor="#003049" Text="{Binding DateEnd, StringFormat='{0:dd/MMM}'}" d:Text="End date" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                                                    <Label TextColor="#003049" Text=" (" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                                                    <Label TextColor="#003049" Text="{Binding TotalDays}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large" />
+                                                    <Label TextColor="#003049" Text=" days" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                                                    <Label TextColor="#003049" Text=") " HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                                                </StackLayout>
+                                                <!--<StackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" Padding="0" Margin="0">
+                                                    <ffsvg:SvgCachedImage 
+                                                        x:Name="btn_DeletePeriod"
+                                                        Source="resource://TeamManager.Resources.delete.svg"
+                                                        MinimumHeightRequest="50"
+                                                        MinimumWidthRequest="50"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="FillAndExpand"
+                                                        Aspect="AspectFill">
+                                                        <ffsvg:SvgCachedImage.Transformations>
+                                                            <fftransformations:TintTransformation HexColor="#ff4c4c" EnableSolidColor="true"/>
+                                                        </ffsvg:SvgCachedImage.Transformations>
+                                                        <ffsvg:SvgCachedImage.GestureRecognizers>
+                                                            <TapGestureRecognizer
+                                                            Command="{Binding Path=BindingContext.TapCommand_DeletePeriod, Source={x:Reference VacationDetailContentPage}}"
+                                                            CommandParameter="{Binding .}"
+                                                            NumberOfTapsRequired="1"/>
+                                                        </ffsvg:SvgCachedImage.GestureRecognizers>
+                                                    </ffsvg:SvgCachedImage>
+                                                </StackLayout>-->
+                                            </Grid>
+                                        </Frame>
+                                        <Frame BorderColor="#ff3232" BackgroundColor="#ff4c4c" Grid.Column="1" Grid.Row="0" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" Padding="0" Margin="0,5,5,0">
+                                            <ffsvg:SvgCachedImage 
+                                                        x:Name="btn_DeletePeriod"
+                                                        Source="resource://TeamManager.Resources.trash.svg"
+                                                        HeightRequest="25"
+                                                        WidthRequest="25"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"
+                                                        Aspect="AspectFit">
+                                                <ffsvg:SvgCachedImage.Transformations>
+                                                    <fftransformations:TintTransformation HexColor="#ffe5e5" EnableSolidColor="true"/>
+                                                </ffsvg:SvgCachedImage.Transformations>
+                                                <ffsvg:SvgCachedImage.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                            Command="{Binding Path=BindingContext.TapCommand_DeletePeriod, Source={x:Reference VacationDetailContentPage}}"
+                                                            CommandParameter="{Binding .}"
+                                                            NumberOfTapsRequired="1"/>
+                                                </ffsvg:SvgCachedImage.GestureRecognizers>
+                                            </ffsvg:SvgCachedImage>
+                                        </Frame>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </StackLayout>
+        </Frame>
+        <Frame BorderColor="{StaticResource FrameBorderColor}" BackgroundColor="#e5f4ff" VerticalOptions="End" Padding="3" IsVisible="{Binding ButtonSpentEnabled}">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_BtnDatesPopup" />
+            </Frame.GestureRecognizers>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="3">
+                <Label Text="Add Vacation Period" FontSize="Medium" HorizontalOptions="Start" FontAttributes="Bold" VerticalOptions="Center" TextColor="#003049"/>
+                <ffsvg:SvgCachedImage 
+                                x:Name="btn_DatePopup"
+                                Source="resource://TeamManager.Resources.add-date.svg"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                HeightRequest="35" 
+                                WidthRequest="35"
+                                Margin="0,0,10,0"
+                                Aspect="AspectFit">
+                    <ffsvg:SvgCachedImage.Transformations>
+                        <fftransformations:TintTransformation HexColor="#003049" EnableSolidColor="true"/>
+                    </ffsvg:SvgCachedImage.Transformations>
+                    <ffsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer 
+                                        Tapped="TapGestureRecognizer_BtnDatesPopup" 
+                                        NumberOfTapsRequired="1"/>
+                    </ffsvg:SvgCachedImage.GestureRecognizers>
+                </ffsvg:SvgCachedImage>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+    
+</ContentPage>

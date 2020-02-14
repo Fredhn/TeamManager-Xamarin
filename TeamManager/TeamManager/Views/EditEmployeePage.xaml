@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             mc:Ignorable="d"
+             x:Class="TeamManager.Views.EditEmployeePage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="New Employee">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Frame>
+                <StackLayout>
+                    <Label Text="First Name" Style="{DynamicResource LabelTitle}" />
+                    <Entry Text="{Binding Employee.FirstName}" d:Text="First Name" Style="{DynamicResource LabelContent}" />
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="Last Name" Style="{DynamicResource LabelTitle}" />
+                    <Entry Text="{Binding Employee.LastName}" d:Text="Last Name" Style="{DynamicResource LabelContent}" />
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="Email Address" Style="{DynamicResource LabelTitle}" />
+                    <Entry Text="{Binding Employee.EmailAddress}" d:Text="Email Address" Style="{DynamicResource LabelContent}" />
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="Admission Date" Style="{DynamicResource LabelTitle}" />
+                    <DatePicker Date="{Binding Employee.AdmissionDate}" Format="dd-MMM-yyyy" Style="{DynamicResource LabelContent}" Margin="0" />
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="Acquisitive Period" Style="{DynamicResource LabelTitle}" />
+                    <DatePicker Date="{Binding Employee.AcquisitivePeriod}" Format="dd-MMM-yyyy" Style="{DynamicResource LabelContent}" Margin="0" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

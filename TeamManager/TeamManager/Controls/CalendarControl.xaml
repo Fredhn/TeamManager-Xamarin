@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             mc:Ignorable="d"
+             x:Class="TeamManager.Controls.CalendarControl">
+  <ContentView.Content>
+        <AbsoluteLayout>
+            <ScrollView Padding="0,0,0,0" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="{StaticResource BackgroundColor}">
+                <StackLayout Margin="5,5,5,5">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <ffsvg:SvgCachedImage x:Name="btnBack" Grid.Row="1" Grid.Column="1" Aspect="AspectFit" HeightRequest="15" IsVisible="True" Source="resource://TeamManager.Resources.left-arrow.svg" VerticalOptions="Center" WidthRequest="15">
+                                <ffsvg:SvgCachedImage.Transformations>
+                                    <fftransformations:TintTransformation HexColor="#d62828" EnableSolidColor="true"/>
+                                </ffsvg:SvgCachedImage.Transformations>
+                                <ffsvg:SvgCachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="btnBack_Clicked" />
+                                </ffsvg:SvgCachedImage.GestureRecognizers>
+                            </ffsvg:SvgCachedImage>
+                            <Label x:Name="lblSelectedMonth" Grid.Row="1" Grid.Column="2" Style="{StaticResource LabelContent}" HorizontalOptions="Center" IsVisible="True" Text="January" VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="lblmonth_tapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label x:Name="lblDash" Grid.Row="1" Grid.Column="3" Style="{StaticResource LabelTitle}" HorizontalOptions="Center" IsVisible="True" Text="-" VerticalOptions="Center" />
+                            <Entry x:Name="lblM" IsVisible="False" />
+                            <Entry x:Name="lblY" IsVisible="False" />
+                            <Label x:Name="lblMonth" IsVisible="False" />
+                            <Entry x:Name="lblSelectedDay" IsVisible="False" />
+                            <Label x:Name="lblYear" Grid.Row="1" Grid.Column="4" Style="{StaticResource LabelContent}" HorizontalOptions="Center" IsVisible="True" Text="2018" VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="lblYear_tapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <ffsvg:SvgCachedImage x:Name="btnForward" Grid.Row="1" Grid.Column="5" Aspect="AspectFit" HeightRequest="15" HorizontalOptions="Center" IsVisible="True" Source="resource://TeamManager.Resources.right-arrow.svg" VerticalOptions="Center" WidthRequest="15">
+                                <ffsvg:SvgCachedImage.Transformations>
+                                    <fftransformations:TintTransformation HexColor="#d62828" EnableSolidColor="true"/>
+                                </ffsvg:SvgCachedImage.Transformations>
+                                <ffsvg:SvgCachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="btnForward_Clicked" />
+                                </ffsvg:SvgCachedImage.GestureRecognizers>
+                            </ffsvg:SvgCachedImage>
+                        </Grid>
+                    </StackLayout>
+                    <ContentView x:Name="gridstack" HorizontalOptions="Center" VerticalOptions="Center" />
+                </StackLayout>
+            </ScrollView>
+            <ContentView x:Name="overlay" Padding="10,0" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0808080" IsVisible="False">
+                <ScrollView Padding="0,0,2,0" VerticalOptions="Fill">
+                    <StackLayout Margin="0,20,0,0" BackgroundColor="Black" HeightRequest="400" HorizontalOptions="Center" Orientation="Vertical" VerticalOptions="Start" WidthRequest="200">
+                        <Label x:Name="lblDialogTitle" BackgroundColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand" Text="Select" TextColor="White" VerticalOptions="CenterAndExpand" />
+                        <ListView x:Name="lstView_data" BackgroundColor="White" HasUnevenRows="False" HorizontalOptions="FillAndExpand" ItemSelected="lstView_data_ItemSelected" SeparatorVisibility="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Padding="0" BackgroundColor="White" Spacing="0">
+                                            <Grid Padding="5" BackgroundColor="White" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="10" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="10" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Row="0" Grid.Column="0" Font="Bold" FontSize="12" IsVisible="False" Text="{Binding dataid}" TextColor="Black" />
+                                                <Label Grid.Row="0" Grid.Column="1" Font="Normal" FontSize="12" HorizontalOptions="CenterAndExpand" Text="{Binding data}" TextColor="Black" VerticalOptions="CenterAndExpand" />
+                                            </Grid>
+                                            <BoxView BackgroundColor="#f1f1f1" HeightRequest="1" />
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackLayout>
+                            <Button x:Name="dialogclose" BackgroundColor="Black" Clicked="dialogclose_Clicked" FontSize="14" HeightRequest="40" Text="Close" TextColor="White" />
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </ContentView>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>
