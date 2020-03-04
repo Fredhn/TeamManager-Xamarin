@@ -64,8 +64,8 @@
             </ScrollView>
             <ContentView x:Name="overlay" Padding="10,0" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#C0808080" IsVisible="False">
                 <ScrollView Padding="0,0,2,0" VerticalOptions="Fill">
-                    <StackLayout Margin="0,20,0,0" BackgroundColor="Black" HeightRequest="400" HorizontalOptions="Center" Orientation="Vertical" VerticalOptions="Start" WidthRequest="200">
-                        <Label x:Name="lblDialogTitle" BackgroundColor="Black" FontSize="14" HorizontalOptions="CenterAndExpand" Text="Select" TextColor="White" VerticalOptions="CenterAndExpand" />
+                    <StackLayout Margin="0,20,0,0" BackgroundColor="{StaticResource NavigationPrimary}" HeightRequest="400" HorizontalOptions="Center" Orientation="Vertical" VerticalOptions="Start" WidthRequest="200">
+						<Label x:Name="lblDialogTitle" BackgroundColor="{StaticResource NavigationPrimary}" FontSize="20" HorizontalOptions="CenterAndExpand" Text="Select" TextColor="{StaticResource BackgroundColor}" VerticalOptions="CenterAndExpand" />
                         <ListView x:Name="lstView_data" BackgroundColor="White" HasUnevenRows="False" HorizontalOptions="FillAndExpand" ItemSelected="lstView_data_ItemSelected" SeparatorVisibility="None">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -80,8 +80,8 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="10" />
                                                 </Grid.ColumnDefinitions>
-                                                <Label Grid.Row="0" Grid.Column="0" Font="Bold" FontSize="12" IsVisible="False" Text="{Binding dataid}" TextColor="Black" />
-                                                <Label Grid.Row="0" Grid.Column="1" Font="Normal" FontSize="12" HorizontalOptions="CenterAndExpand" Text="{Binding data}" TextColor="Black" VerticalOptions="CenterAndExpand" />
+												<Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource LabelContent}"  FontSize="12" IsVisible="False" Text="{Binding dataid}"/>
+												<Label Grid.Row="0" Grid.Column="1" Style="{DynamicResource LabelContent}"  HorizontalOptions="CenterAndExpand" Text="{Binding data}" VerticalOptions="CenterAndExpand" />
                                             </Grid>
                                             <BoxView BackgroundColor="#f1f1f1" HeightRequest="1" />
                                         </StackLayout>
@@ -90,7 +90,7 @@
                             </ListView.ItemTemplate>
                         </ListView>
                         <StackLayout>
-                            <Button x:Name="dialogclose" BackgroundColor="Black" Clicked="dialogclose_Clicked" FontSize="14" HeightRequest="40" Text="Close" TextColor="White" />
+							<Button x:Name="dialogclose" BackgroundColor="{StaticResource NavigationPrimary}" Clicked="dialogclose_Clicked" FontSize="14" HeightRequest="40" Text="Close" TextColor="White" />
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

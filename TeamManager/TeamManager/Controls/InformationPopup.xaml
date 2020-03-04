@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="TeamManager.Controls.InformationPopup">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="#9cdaf1"/>
+                <Setter Property="TextColor" Value="#7dbbe6"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Bottom"
+            PositionOut="Center"
+            ScaleIn="1"
+            ScaleOut="0.7"
+            DurationIn="700"
+            EasingIn="BounceOut"/>
+    </pages:PopupPage.Animation>
+    <ScrollView
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Padding="0">
+        <StackLayout Padding="0">
+            <Frame
+                x:Name="FrameContainer"
+                Margin="15,3,15,3"
+                Padding="5"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                BorderColor="{StaticResource FrameBorderColor}"
+                MinimumWidthRequest="200"
+                WidthRequest="260">
+                <StackLayout>
+                    <ffsvg:SvgCachedImage
+                        Source="resource://TeamManager.Resources.close.svg"
+                        x:Name="CloseImage"
+                        HeightRequest="25"
+                        WidthRequest="25"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+                        <ffsvg:SvgCachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseButtonTapped" />
+                        </ffsvg:SvgCachedImage.GestureRecognizers>
+                        <ffsvg:SvgCachedImage.Transformations>
+                            <fftransformations:TintTransformation HexColor="#003049" EnableSolidColor="true"/>
+                        </ffsvg:SvgCachedImage.Transformations>
+                    </ffsvg:SvgCachedImage>
+                    <StackLayout>
+						<Label x:Name="Title" Style="{StaticResource LabelTitle}" HorizontalOptions="Center" VerticalOptions="Center"/>
+						<Label x:Name="Subtitle" Style="{StaticResource LabelContent}" HorizontalOptions="Center" VerticalOptions="Center"/>
+						<Label x:Name="Content" Style="{StaticResource LabelContent}" HorizontalOptions="Center" VerticalOptions="Center"/>
+					</StackLayout>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+</pages:PopupPage>

@@ -62,6 +62,7 @@ namespace TeamManager.Views
 
             this.SetBindingContext();
         }
+
         private async Task ShowPopup()
         {
             DatesPopup = new DateRangePopup(this.Context.Vacation);

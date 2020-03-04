@@ -18,7 +18,7 @@ namespace TeamManager.ViewModels
         {
             Title = "Calendar";
 
-            LoadVacationsCalendarCommand = new Command(async () => await ExecuteLoadVacationsCalendar());
+            //LoadVacationsCalendarCommand = new Command(async () => await ExecuteLoadVacationsCalendar());
         }
 
         async Task ExecuteLoadVacationsCalendar()

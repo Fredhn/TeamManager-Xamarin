@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamManager.Models;
+using TeamManager.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,7 +20,7 @@ namespace TeamManager.Controls
         propertyName: "Year",
         returnType: typeof(string),
         declaringType: typeof(CalendarControl),
-        defaultValue: "2018",
+        defaultValue: "2020",
         defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: YearPropertyChanged);
 
@@ -37,6 +39,19 @@ namespace TeamManager.Controls
         defaultValue: "0",
         defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: SelectedDayPropertyChanged);
+
+        public static readonly BindableProperty AlertDatesProperty = BindableProperty.Create(
+        propertyName: "AlertDates",
+        returnType: typeof(ObservableCollection<ExpiredVacations>),
+        declaringType: typeof(CalendarControl),
+        defaultValue: null,
+        defaultBindingMode: BindingMode.TwoWay,
+        propertyChanged: AlertDatesPropertyChanged);
+        public ObservableCollection<ExpiredVacations> AlertDates
+        {
+            get { return (ObservableCollection<ExpiredVacations>)GetValue(AlertDatesProperty); }
+            set { SetValue(AlertDatesProperty, value); }
+        }
         public string SelectedDay
         {
             get { return GetValue(SelectedDayProperty).ToString(); }
@@ -57,6 +72,11 @@ namespace TeamManager.Controls
         {
             var control = (CalendarControl)bindable;
             control.lblSelectedDay.Text = newValue.ToString();
+        }
+        private static void AlertDatesPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (CalendarControl)bindable;
+            //control.lblSelectedDay.Text = newValue.ToString();
         }
         public string Month
         {
@@ -94,7 +114,7 @@ namespace TeamManager.Controls
             lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y), Convert.ToInt32(m), 1).ToString("MMMM");
             SelectedMonthInt = Convert.ToInt32(m);
             lblYear.Text = Convert.ToString(y);
-            CreateGridCalander();
+            CreateGridCalendar();
             CreateDate(selectedday);
         }
         private void MonthChanged_TextChanged(object sender, TextChangedEventArgs e)
@@ -106,10 +126,10 @@ namespace TeamManager.Controls
             lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y), Convert.ToInt32(m), 1).ToString("MMMM");
             SelectedMonthInt = Convert.ToInt32(m);
             lblYear.Text = Convert.ToString(y);
-            CreateGridCalander();
+            CreateGridCalendar();
             CreateDate(selectedday);
         }
-        private void CreateGridCalander()
+        private void CreateGridCalendar()
         {
             #region Grid Calendar
             gridCalendar = new Grid
@@ -231,28 +251,59 @@ namespace TeamManager.Controls
         {
             var y = Year;
             var m = Month;
+            if (Convert.ToInt32(m).Equals(1))
+            {
+                m = "12";
+                y = (Convert.ToInt32(y) - 1).ToString();
+                SelectedMonthInt = (Convert.ToInt32(m));
+                lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y), (Convert.ToInt32(m)), 1).ToString("MMMM");
+            }
+            else
+            {
+                SelectedMonthInt = (Convert.ToInt32(m) - 1);
+                lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y), (Convert.ToInt32(m) - 1), 1).ToString("MMMM");
+            }
+
             selectedday = SelectedDay;
-            SelectedYear = Convert.ToInt64(y);
-            lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y),(Convert.ToInt32(m) - 1), 1).ToString("MMMM");
-            SelectedMonthInt = (Convert.ToInt32(m) - 1);
+
             Month = SelectedMonthInt.ToString();
+
+            SelectedYear = Convert.ToInt64(y);
             lblYear.Text = Convert.ToString(y);
-            CreateGridCalander();
-            CreateDate(selectedday);
+            Year = y;
+
+            CreateGridCalendar();
+            CreateAlertDate();
         }
 
         private void btnForward_Clicked(object sender, EventArgs e)
         {
             var y = Year;
             var m = Month;
+
+            if (Convert.ToInt32(m).Equals(12))
+            {
+                m = "1";
+                y = (Convert.ToInt32(y) + 1).ToString();
+                SelectedMonthInt = (Convert.ToInt32(m));
+                lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y), (Convert.ToInt32(m)), 1).ToString("MMMM");
+            }
+            else
+            {
+                lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y), (1 + Convert.ToInt32(m)), 1).ToString("MMMM");
+                SelectedMonthInt = (Convert.ToInt32(m) + 1);
+            }
+
             selectedday = SelectedDay;
-            SelectedYear = Convert.ToInt64(y);
-            lblSelectedMonth.Text = new DateTime(Convert.ToInt32(y), (1 + Convert.ToInt32(m)), 1).ToString("MMMM");
-            SelectedMonthInt = (Convert.ToInt32(m) + 1);
+
             Month = SelectedMonthInt.ToString();
+
+            SelectedYear = Convert.ToInt64(y);
             lblYear.Text = Convert.ToString(y);
-            CreateGridCalander();
-            CreateDate(selectedday);
+            Year = y;
+
+            CreateGridCalendar();
+            CreateAlertDate();
         }
 
 
@@ -284,7 +335,7 @@ namespace TeamManager.Controls
             lstView_data.ItemsSource = null;
             try
             {
-                List<int> listYears = Enumerable.Range(1930, DateTime.Now.AddYears(50).Year - 1930 + 1).ToList();
+                List<int> listYears = Enumerable.Range(1980, DateTime.Now.AddYears(50).Year - 1980 + 1).ToList();
                 List<DataMaster> VList = new List<DataMaster>();
                 for (int i = 1; i < listYears.Count; i++)
                 {
@@ -326,13 +377,15 @@ namespace TeamManager.Controls
                 SelectedMonthInt = Convert.ToInt32(item1.dataid);
                 lblSelectedMonth.Text = SelectedMonth;
             }
+
             if (SelectedMonthInt == DateTime.Now.Month && SelectedYear == DateTime.Now.Year)
             {
-                CreateDate(Convert.ToString(DateTime.Now.Day));
+                //CreateDate(Convert.ToString(DateTime.Now.Day));
+                CreateAlertDate();
             }
             else
             {
-                CreateDate("0");
+                CreateAlertDate();
             }
 
             //----------------------------------------------------------------------
@@ -357,7 +410,7 @@ namespace TeamManager.Controls
 
 
             gridCalendar.Children.Clear();
-            CreateGridCalander();
+            CreateGridCalendar();
             for (int i = startOfMonth.Day; i <= endOfMonth.Day; i++)
             {
                 FontAttributes fontattributes = FontAttributes.None;
@@ -383,6 +436,146 @@ namespace TeamManager.Controls
                 };
                 btn[i - 1].Clicked += Calendar_Clicked;
             }
+            int r = 3;
+            int c = 0;
+            if (day == 1)
+            {
+                c = 1;
+            }
+            else if (day == 2)
+            {
+                c = 3;
+            }
+            else if (day == 3)
+            {
+                c = 5;
+            }
+            else if (day == 4)
+            {
+                c = 7;
+            }
+            else if (day == 5)
+            {
+                c = 9;
+            }
+            else if (day == 6)
+            {
+                c = 11;
+            }
+            else
+            {
+                c = 13;
+            }
+
+
+            int m = 1;
+
+            // adding button to gridview
+
+            for (int k = 1; k <= 7; k++)
+            {
+                for (int j = 1; j <= 7; j = j + 1)
+                {
+                    if (m > endOfMonth.Day)
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                        gridCalendar.Children.Add(btn[m - 1], c, r);
+                        c = c + 2;
+                        m++;
+
+                        if (c == 15)
+                        {
+                            break;
+                        }
+                    }
+                }
+                c = 1;
+                r = r + 2;
+            }
+            overlay.IsVisible = false;
+        }
+        
+        public async void CreateAlertDate()
+        {
+            Button[] btn = new Button[31];
+
+            //getting First Day and Last Day---------------------------------------
+
+            DateTime startOfMonth = new DateTime(Convert.ToInt32(SelectedYear), SelectedMonthInt, 1);   //new DateTime(year, month, 1);
+
+            DateTime endOfMonth = new DateTime(Convert.ToInt32(SelectedYear), SelectedMonthInt, DateTime.DaysInMonth(Convert.ToInt32(SelectedYear), SelectedMonthInt)); //new DateTime(year, month, DateTime.DaysInMonth(year, month));
+
+            // DateTime dtSelectedDate = DateTime.Now;
+            string dtFirstDayOfMonth = startOfMonth.ToString("ddd");
+            string dtLastDayOfMonth = endOfMonth.ToString("ddd");
+
+            int day = (int)startOfMonth.DayOfWeek;
+
+            gridCalendar.Children.Clear();
+            CreateGridCalendar();
+
+            var lista = await Service_Calendar.GetAllExpiredVacations();
+            AlertDates = new ObservableCollection<ExpiredVacations>(lista);
+
+            var alertDatesToCreate = new List<DateTime>();
+            foreach (var it in lista)
+            {
+                foreach (var d in it.ExpiringDates)
+                {
+                    if (d.Year == SelectedYear && d.Month == SelectedMonthInt)
+                        alertDatesToCreate.Add(d);
+                }
+            }
+
+            for (int i = startOfMonth.Day; i <= endOfMonth.Day; i++)
+            {
+                foreach (var d in alertDatesToCreate)
+                {
+                    if (SelectedYear == d.Year &&
+                        SelectedMonthInt == d.Month &&
+                        i == Convert.ToInt32(d.Day))
+                    {
+                        btn[i - 1] = new Button()
+                        {
+                            Text = i.ToString(),
+                            FontSize = 12,
+                            FontAttributes = FontAttributes.Bold,
+                            BackgroundColor = Color.White,
+                            TextColor = Color.Red
+                        };
+                        btn[i - 1].Clicked += Calendar_Clicked;
+                    }
+                    else
+                    {
+                        btn[i - 1] = new Button()
+                        {
+                            Text = i.ToString(),
+                            FontSize = 12,
+                            FontAttributes = FontAttributes.None,
+                            BackgroundColor = Color.Transparent,
+                            TextColor = Color.Black
+                        };
+                        btn[i - 1].Clicked += Calendar_Clicked;
+                    }
+                }
+                if (btn[i - 1] == null)
+                {
+                    btn[i - 1] = new Button()
+                    {
+                        Text = i.ToString(),
+                        FontSize = 12,
+                        FontAttributes = FontAttributes.None,
+                        BackgroundColor = Color.Transparent,
+                        TextColor = Color.Black
+                    };
+                    btn[i - 1].Clicked += Calendar_Clicked;
+                }
+            }
+
             int r = 3;
             int c = 0;
             if (day == 1)

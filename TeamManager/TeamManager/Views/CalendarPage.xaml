@@ -27,6 +27,8 @@
         </Grid.ColumnDefinitions>
 
         <custom:CalendarControl
+			HorizontalOptions="CenterAndExpand"
+			VerticalOptions="CenterAndExpand"
             x:Name="ccControls"
             Grid.Row="0"
             Grid.Column="0"

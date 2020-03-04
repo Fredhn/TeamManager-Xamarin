@@ -41,6 +41,9 @@
     <Compile Update="Controls\CalendarControl.xaml.cs">
       <DependentUpon>CalendarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Controls\InformationPopup.xaml.cs">
+      <DependentUpon>InformationPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Controls\ConfirmationPopup.xaml.cs">
       <DependentUpon>ConfirmationPopup.xaml</DependentUpon>
     </Compile>
